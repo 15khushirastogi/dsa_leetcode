@@ -1,5 +1,3 @@
-#include <algorithm>
-
 class Solution {
 public:
     long long countFairPairs(vector<int>& nums, int lower, int upper) {
@@ -7,14 +5,32 @@ public:
         long long count = 0;
         
         for (int i = 0; i < nums.size(); ++i) {
-            int low = lower - nums[i];
-            int high = upper - nums[i];
+            int left = i + 1;
+            int right = nums.size() - 1;
             
-            // Find the range within [i + 1, nums.size()) that satisfies the sum constraints
-            auto left = lower_bound(nums.begin() + i + 1, nums.end(), low);
-            auto right = upper_bound(nums.begin() + i + 1, nums.end(), high);
+            // Find the smallest j such that nums[i] + nums[j] >= lower
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[i] + nums[mid] >= lower) right = mid - 1;
+                else left = mid + 1;
+            }
+            int start = left;
+
+            left = i + 1;
+            right = nums.size() - 1;
             
-            count += right - left;
+            // Find the largest j such that nums[i] + nums[j] <= upper
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[i] + nums[mid] <= upper) left = mid + 1;
+                else right = mid - 1;
+            }
+            int end = right;
+            
+            // Add to count the number of valid pairs with i as the first element
+            if (start <= end) {
+                count += end - start + 1;
+            }
         }
         
         return count;
