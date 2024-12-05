@@ -1,21 +1,32 @@
 class Solution {
 private:
-    bool checkSum(TreeNode* root, int targetSum, int curSum) {
+    bool checkPath(TreeNode* root, int targetSum, vector<int>& path) {
         if (root == nullptr) {
             return false;
         }
-        
-        curSum += root->val;
+        path.push_back(root->val);
 
         if (root->left == nullptr && root->right == nullptr) {
-            return curSum == targetSum;
+            int pathSum = 0;
+            for (int val : path) {
+                pathSum += val;
+            }
+            if (pathSum == targetSum) {
+                return true;
+            }
         }
 
-        return checkSum(root->left, targetSum, curSum) || checkSum(root->right, targetSum, curSum);
+        bool leftCheck = checkPath(root->left, targetSum, path);
+        bool rightCheck = checkPath(root->right, targetSum, path);
+
+        path.pop_back();
+
+        return leftCheck || rightCheck;
     }
 
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
-        return checkSum(root, targetSum, 0);
+        vector<int> path;
+        return checkPath(root, targetSum, path);
     }
 };
