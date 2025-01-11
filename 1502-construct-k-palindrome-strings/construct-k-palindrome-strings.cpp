@@ -2,21 +2,24 @@ class Solution {
 public:
     bool canConstruct(string s, int k) {
         int n=s.size();
-        if (n < k) return false;
-
-        sort(s.begin(), s.end());
-        int oddCount = 0;
-
-        for (int i = 0; i < n; ) {
-            char current = s[i];
-            int count = 0;
-            while (i < n && s[i] == current) {
-                count++;
-                i++;
-            }
-            if (count % 2 != 0) oddCount++;
+        if(n<k){
+            return false;
         }
-
-        return oddCount <= k;
+        if(n==k){
+            return true;
+        }
+        int freq[26]={0};
+        for(int i=0;i<n;i++){
+            char ch=s[i];
+            int ind=ch-'a';
+            freq[ind]++;
+        }
+        int count=0;
+        for(int i=0;i<26;i++){
+            if(freq[i]%2!=0){
+                count++;
+            }
+        }
+        return count<=k;
     }
 };
