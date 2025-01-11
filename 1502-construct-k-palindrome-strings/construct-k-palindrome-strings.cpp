@@ -1,15 +1,16 @@
 class Solution {
 public:
     bool canConstruct(string s, int k) {
-        if (s.length() < k) return false;
+        int n=s.size();
+        if (n < k) return false;
 
         sort(s.begin(), s.end());
         int oddCount = 0;
 
-        for (int i = 0; i < s.length(); ) {
+        for (int i = 0; i < n; ) {
             char current = s[i];
             int count = 0;
-            while (i < s.length() && s[i] == current) {
+            while (i < n && s[i] == current) {
                 count++;
                 i++;
             }
