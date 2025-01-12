@@ -1,28 +1,29 @@
 class Solution {
 public:
-    bool canBeValid(string str, string lockStatus) {
-        if (str.size() % 2 != 0) 
+    bool canBeValid(string s, string locked) {
+        if (s.size() % 2 != 0) 
             return false;
 
-        int openCount = 0;
-        for (int i = 0; i < str.size(); ++i) {
-            if (lockStatus[i] == '0' || str[i] == '(') 
-                openCount++;
-            else 
-                openCount--;
-            if (openCount < 0) 
+        int open_count = 0, close_count = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (locked[i] == '0' || s[i] == '(')
+                open_count++;
+            else
+                open_count--;
+            if (open_count < 0)
                 return false;
         }
 
-        openCount = 0;
-        for (int i = str.size() - 1; i >= 0; --i) {
-            if (lockStatus[i] == '0' || str[i] == ')') 
-                openCount++;
-            else 
-                openCount--;
-            if (openCount < 0) 
+        open_count = 0;
+        for (int i = s.size() - 1; i >= 0; i--) {
+            if (locked[i] == '0' || s[i] == ')')
+                close_count++;
+            else
+                close_count--;
+            if (close_count < 0)
                 return false;
         }
+
         return true;
     }
 };
