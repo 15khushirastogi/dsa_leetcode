@@ -9,12 +9,12 @@ public:
         vector<int> min_time(n + 1, 1e9);
         min_time[k] = 0;
 
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        queue<pair<int,int>>pq;
         pq.push({0, k});
 
         while (!pq.empty()) {
-            int time = pq.top().first;
-            int node = pq.top().second;
+            int time = pq.front().first;
+            int node = pq.front().second;
             pq.pop();
 
             for (auto& it : adj[node]) {
