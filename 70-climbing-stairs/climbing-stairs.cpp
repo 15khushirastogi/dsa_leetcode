@@ -29,14 +29,6 @@ public:
 class Solution {
 public:
     int climbStairs(int n) {
-        /*
-        if(n==0){
-            return 1;
-        }
-        if(n==1){
-            return 1;
-        }
-        */
         //declare and initialise dp
         vector<int>dp(n+1,-1);
         dp[0]=1;
