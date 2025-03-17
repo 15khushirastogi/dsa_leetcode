@@ -6,8 +6,8 @@ public:
             mp[nums[i]]++;
         }
 
-        for(int j=0;j<mp.size();j++){
-            if(mp[j]%2!=0){
+        for (auto &pair : mp) {  
+            if (pair.second % 2 != 0) {
                 return false;
             }
         }
