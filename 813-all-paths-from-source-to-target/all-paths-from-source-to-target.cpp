@@ -6,8 +6,8 @@ private:
         if (src == dest) {
             ans.push_back(path);
         } 
-        else {
-            
+        else 
+        {
             for (int neighbor : graph[src]) {
                 dfs(neighbor, dest, graph, path, ans);
             }
