@@ -1,26 +1,29 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         n=len(prices)
-        dp=[[[-1 for _ in range(k+1)]for _ in range(2)]for _ in range(n+1)]
+        dp=[[[0 for _ in range(k+1)]for _ in range(2)]for _ in range(n+1)]
 
-        def f(ind,buy,cap):
-            if ind==n:
-                return 0
-            if cap==0:
-                return 0
-            if dp[ind][buy][cap]!=-1:
-                return dp[ind][buy][cap]
-            if buy:
-                take=-prices[ind]+f(ind+1,0,cap)
-                nottake=0+f(ind+1,1,cap)
+        #Base Cases
+        for ind in range(0,n):
+            for buy in range(2):
+                dp[ind][buy][0]=0
 
-                dp[ind][buy][cap]=max(take,nottake)
-            else:
-                sell=prices[ind]+f(ind+1,1,cap-1)
-                notsell=0+f(ind+1,0,cap)
+        for buy in range(2):
+            for cap in range(k+1):
+                dp[n][buy][cap]=0
 
-                dp[ind][buy][cap]=max(sell,notsell)
+        for ind in range(n-1,-1,-1):
+            for buy in range(2):
+                for cap in range(1,k+1):
+                    if buy:
+                        take=-prices[ind]+dp[ind+1][0][cap]
+                        nottake=0+dp[ind+1][1][cap]
 
-            return dp[ind][buy][cap]
+                        dp[ind][buy][cap]=max(take,nottake)
+                    else:
+                        sell=prices[ind]+dp[ind+1][1][cap-1]
+                        notsell=0+dp[ind+1][0][cap]
 
-        return f(0,1,k)
+                        dp[ind][buy][cap]=max(sell,notsell)
+
+        return dp[0][1][k]
