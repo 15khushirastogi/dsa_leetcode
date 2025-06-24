@@ -1,24 +1,20 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         n=len(prices)
-        dp=[[-1 for _ in range(2)]for _ in range(n+1)]
+        dp=[[0 for _ in range(2)]for _ in range(n+2)]
 
-        def f(ind,buy):
-            if ind>=n:
-                return 0
-            if dp[ind][buy]!=-1:
-                return dp[ind][buy]
+        for ind in range(n-1,-1,-1):
+            for buy in range(2):
+                if buy:
+                    take=-prices[ind]+dp[ind+1][0]
+                    nottake=0+dp[ind+1][1]
+                    dp[ind][buy]=max(take,nottake)
 
-            if buy:
-                take=-prices[ind]+f(ind+1,0)
-                nottake=0+f(ind+1,1)
-                dp[ind][buy]=max(take,nottake)
+                else:
+                    sell=prices[ind]+dp[ind+2][1]
+                    notsell=0+dp[ind+1][0]
+                    dp[ind][buy]=max(sell,notsell)
 
-            else:
-                sell=prices[ind]+f(ind+2,1)
-                notsell=0+f(ind+1,0)
-                dp[ind][buy]=max(sell,notsell)
+        return dp[0][1]
 
-            return dp[ind][buy]
 
-        return f(0,1)
