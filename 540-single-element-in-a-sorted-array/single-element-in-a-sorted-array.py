@@ -1,14 +1,12 @@
-class Solution:
-    def singleNonDuplicate(self, nums: List[int]) -> int:
-        d={}
-        for i in nums:
-            if i not in d:
-                d[i]=1
+class Solution(object):
+    def singleNonDuplicate(self, nums):
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if mid % 2 == 1:
+                mid -= 1
+            if nums[mid] != nums[mid + 1]:
+                right = mid
             else:
-                d[i]+=1
-
-        for key in d:
-            if d[key]==1:
-                return key
-                
-
+                left = mid + 2
+        return nums[left]
