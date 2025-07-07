@@ -12,5 +12,5 @@ class Solution:
                 high=mid-1
 
 
-        return (high+1+k) or (low+k)
+        return low+k
 
