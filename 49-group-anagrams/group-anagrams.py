@@ -1,19 +1,10 @@
-class Solution(object):
-    def groupAnagrams(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: List[List[str]]
-        """
-        ans = []
-        d = {}
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        hashmap = {}
         for word in strs:
-            sorted_word = tuple(sorted(word)) 
-            if sorted_word not in d:
-                d[sorted_word] = [word]
+            sortedword = ''.join(sorted(word))
+            if sortedword in hashmap:
+                hashmap[sortedword].append(word)
             else:
-                d[sorted_word].append(word)
-
-        for key in d:
-            ans.append(d[key])
-        
-        return ans
+                hashmap[sortedword] = [word]
+        return list(hashmap.values())
