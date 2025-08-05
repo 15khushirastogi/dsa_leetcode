@@ -9,11 +9,7 @@ class Solution:
         if x==1:
             return 1.0
 
-        if x==-1 and n%2==0:
-            return 1.0
-        if x==-1 and n%2==1:
-            return -1.0
-
+      
         binform=n
         if n<0:
             x=1/x
