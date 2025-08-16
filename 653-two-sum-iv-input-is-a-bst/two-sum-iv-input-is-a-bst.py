@@ -6,16 +6,16 @@
 #         self.right = right
 class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        s={} #visited set
+        seen=set() #visited set
         
         def dfs(node):
             if not node:
                 return False
             
-            if (k-node.val) in s:
+            if (k-node.val) in seen:
                 return True
 
-            s[node.val]=True
+            seen.add(node.val)
 
             return dfs(node.left) or dfs(node.right)
 
