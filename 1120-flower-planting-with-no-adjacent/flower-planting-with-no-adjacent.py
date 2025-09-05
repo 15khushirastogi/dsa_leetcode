@@ -11,6 +11,7 @@ class Solution:
             for j in range(1,5):
                 if j not in used:
                     color[i]=j
+                    break
 
 
         return color
