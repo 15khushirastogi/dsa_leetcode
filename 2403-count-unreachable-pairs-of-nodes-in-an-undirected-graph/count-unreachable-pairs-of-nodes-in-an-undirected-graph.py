@@ -6,7 +6,6 @@ class Solution:
             adj[v].append(u)
         vis=[0]*n
         size=[]
-        comp=0
         def dfs(node):
             vis[node]=1
             count=1
