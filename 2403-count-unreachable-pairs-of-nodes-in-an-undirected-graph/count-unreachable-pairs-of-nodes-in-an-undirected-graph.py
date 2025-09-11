@@ -18,9 +18,10 @@ class Solution:
             if vis[i]==0:
                 size.append(dfs(i))
 
-        total_pairs = n * (n - 1) // 2
-
+        rem=n
+        result=0
         for s in size:
-            total_pairs -= s * (s - 1) // 2
+            result+=s*(rem-s)
+            rem-=s
 
-        return total_pairs
+        return result
