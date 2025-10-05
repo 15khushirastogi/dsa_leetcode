@@ -18,21 +18,18 @@ class Solution:
         for val in freq.values():
             if val>(n+1)//2:
                 return ""
-        result=[]
+        result=""
         prev_count=0
         prev_ch=""
         while pq:
             count,ch=heapq.heappop(pq)
-            result.append(ch)
+            result+=ch
             if prev_count<0:
                 heapq.heappush(pq,(prev_count,prev_ch))
 
             prev_count,prev_ch=count+1,ch
 
-        rearranged=""
-        if len(result)>n:
-            return result
-        return "".join(result)
+        return result
 
 
         
