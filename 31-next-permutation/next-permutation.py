@@ -4,20 +4,17 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         n=len(nums)
-        index=-1
-        for i in range(n-2,-1,-1):
-            if(nums[i]<nums[i+1]):
-                index=i
-                break
-        if index==-1:
+        i=n-1
+        while i>0 and nums[i]<=nums[i-1]:
+            i-=1
+        if i==0:
             nums.reverse()
-            return
+            return 
 
-        for j in range(n-1,index,-1):
-            if(nums[j]>nums[index]):
-                nums[j],nums[index]=nums[index],nums[j]
-                break
-        
-        nums[index+1:]=reversed(nums[index+1:])
+        j=n-1
+        while j>=i and nums[j]<=nums[i-1]:
+            j-=1
 
+        nums[i-1],nums[j]=nums[j],nums[i-1]
+        nums[i:]=reversed(nums[i:])        
         
