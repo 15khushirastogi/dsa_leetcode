@@ -2,16 +2,16 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         n=len(s)
         count=0
-        def ispalindrome(start,end):
-            s1=s[start:end+1]
-            if s1==s1[::-1]:
-                return True
-            return False
-
+        def expandAroundCenter(left,right):
+            nonlocal count
+            while left>=0 and right<n and s[left]==s[right]:
+                count+=1
+                left-=1
+                right+=1
         for i in range(n):
-            for j in range(i,n):
-                if(ispalindrome(i,j)):
-                    count+=1
+            #for odd palindromes
+            expandAroundCenter(i,i)
+            #for evene palindromes
+            expandAroundCenter(i,i+1)
 
         return count
-        
